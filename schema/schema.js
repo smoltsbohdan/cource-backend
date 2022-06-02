@@ -8,86 +8,53 @@ const {
   GraphQLInt,
 } = graphql;
 
-const movies = [
+const songs = [
   {
-    id: '1',
-    name: 'Pulp fiction',
-    genre: 'Criminal',
+    id: 1,
+    album: "Particles E.P",
+    thumbnail: 'test',
+    author: "MOON",
+    name: "Plus Four",
+    year: 2012,
+    duration: 320,
+    genre: 'Electronic',
   },
   {
-    id: '2',
-    name: 'Terminal',
-    genre: 'Comedy',
-  },
-  {
-    id: 3,
-    name: 'Interstellar',
-    genre: 'Future',
-  }, {
-    id: '4',
-    name: 'Batman',
-    genre: 'Super Heroes',
-  },
-];
-
-const directors = [
-  {
-    id: '1',
-    name: 'Quentin Tarantino',
-    age: 55,
-  },
-  {
-    id: '2',
-    name: 'Michael Redford',
-    age: 72,
-  },
-  {
-    id: '3',
-    name: 'James Mc',
-    age: 51,
-  },
-  {
-    id: '4',
-    name: 'Gui Ritchie',
-    age: 50,
+    id: 1,
+    album: "Bad Vibes Forever",
+    thumbnail: 'test',
+    author: "XXXTENTACION",
+    name: "NUMB",
+    year: 2018,
+    duration: 140,
+    genre: 'HipHop',
   },
 ];
 
-const MovieType = new GraphQLObjectType({
-  name: 'Movie',
+const SongType = new GraphQLObjectType({
+  name: 'Song',
   fields: () => ({
     id: { type: GraphQLID },
+    album: { type: GraphQLString },
+    thumbnail: { type: GraphQLString },
+    author: { type: GraphQLString },
     name: { type: GraphQLString },
+    year: { type: GraphQLInt },
+    duration: { type: GraphQLInt },
     genre: { type: GraphQLString },
-  })
-});
-
-const DirectorType = new GraphQLObjectType({
-  name: 'Director',
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    age: { type: GraphQLInt },
   })
 });
 
 const Query = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    movie: {
-      type: MovieType,
+    song: {
+      type: SongType,
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
-        return movies.find((movie) => movie.id == args.id);
+        return songs.find((song) => song.id == args.id);
       }
     },
-    director: {
-      type: DirectorType,
-      args: { id: { type: GraphQLID } },
-      resolve(parent, args) {
-        return directors.find((director) => director.id == args.id);
-      }
-    }
   }
 });
 
